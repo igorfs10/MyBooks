@@ -2,19 +2,20 @@ package br.com.senaijandira.mybooks;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.InputStream;
-import java.util.Arrays;
 
+import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class cadastroActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class cadastroActivity extends AppCompatActivity {
 
     private final int COD_REQ_GALERIA = 101;
 
+    private MyBooksDatabase myBooksDb;
+
     private final int ERRO = 0;
     private final int SUCESSO = 1;
 
@@ -33,6 +36,8 @@ public class cadastroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+
+        myBooksDb = Room.databaseBuilder(getApplicationContext(), MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
         imgLivroCapa = findViewById(R.id.imgLivroCapa);
         txtTitulo = findViewById(R.id.txtTitulo);
@@ -73,10 +78,13 @@ public class cadastroActivity extends AppCompatActivity {
         if(!erro && !titulo.equals("") && !descricao.equals("")){
             byte[] capa = Utils.toByteArray(livroCapa);
             Livro livro = new Livro(0, capa, titulo, descricao);
-            int tamanhoArray = MainActivity.livros.length;
-            MainActivity.livros = Arrays.copyOf(MainActivity.livros, tamanhoArray+1);
-            MainActivity.livros[tamanhoArray] = livro;
+            myBooksDb.daoLivro().inserir(livro);
             alert(SUCESSO);
+
+//            Inseri o livro na array
+//            int tamanhoArray = MainActivity.livros.length;
+//            MainActivity.livros = Arrays.copyOf(MainActivity.livros, tamanhoArray+1);
+//            MainActivity.livros[tamanhoArray] = livro;
         } else {
             alert(ERRO);
         }
@@ -89,7 +97,7 @@ public class cadastroActivity extends AppCompatActivity {
 
         if(CONDICAO == ERRO){
             alert.setTitle("ERRO");
-            alert.setMessage("Preencha todos os campos.");
+            alert.setMessage("Preencha todos os campos e selecion a imagem.");
             alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -97,7 +105,7 @@ public class cadastroActivity extends AppCompatActivity {
             });
         }else if(CONDICAO == SUCESSO){
             alert.setTitle("Sucesso");
-            alert.setMessage("Livro cadastrado com sucesso.");
+            alert.setMessage("Cadastro realizado com sucesso.");
             alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
