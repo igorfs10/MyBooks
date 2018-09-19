@@ -91,4 +91,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, cadastroActivity.class));
 
     }
+
+    public void abrirAba(View v){
+        startActivity(new Intent(this, Main2Activity.class));
+    }
 }
