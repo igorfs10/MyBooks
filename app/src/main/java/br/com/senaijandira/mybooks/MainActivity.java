@@ -31,14 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         listaLivros = findViewById(R.id.listaLivros);
 
-        //Criar um livros Fake
-        livros = new Livro[]{/*
-                new Livro(1, Utils.toByteArray(getResources(), R.drawable.pequeno_principe), "O Pequeno Principe", getString(R.string.pequeno_principe)),
-                new Livro(2, Utils.toByteArray(getResources(), R.drawable.cinquenta_tons_cinza), "50 tons de cinza", getString(R.string.pequeno_principe)),
-                new Livro(2, Utils.toByteArray(getResources(), R.drawable.cinquenta_tons_cinza), "50 tons de cinza", getString(R.string.pequeno_principe)),
-                new Livro(2, Utils.toByteArray(getResources(), R.drawable.cinquenta_tons_cinza), "50 tons de cinza", getString(R.string.pequeno_principe)),
-                new Livro(3, Utils.toByteArray(getResources(), R.drawable.kotlin_android), "Kotlin com Android", getString(R.string.pequeno_principe))*/
-        };
     }
 
     @Override
