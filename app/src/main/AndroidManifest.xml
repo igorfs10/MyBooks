@@ -17,8 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".cadastroActivity" />
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".PrimeiroFragment"></activity>
+        <activity android:name=".LivroFragment"></activity>
     </application>
 
 </manifest>
