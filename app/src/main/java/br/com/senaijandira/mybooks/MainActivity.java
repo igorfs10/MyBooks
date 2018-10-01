@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import br.com.senaijandira.mybooks.adapter.AbasAdapter;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,13 +29,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     public void abrirCadastro(View v){
         startActivity(new Intent(this, cadastroActivity.class));
+        finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

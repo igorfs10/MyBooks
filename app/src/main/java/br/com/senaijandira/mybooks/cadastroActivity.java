@@ -24,6 +24,7 @@ public class cadastroActivity extends AppCompatActivity {
     ImageView imgLivroCapa;
     EditText txtTitulo, txtDescricao;
     boolean erro = true;
+    int idLivro;
 
     private final int COD_REQ_GALERIA = 101;
 
@@ -42,6 +43,16 @@ public class cadastroActivity extends AppCompatActivity {
         imgLivroCapa = findViewById(R.id.imgLivroCapa);
         txtTitulo = findViewById(R.id.txtTitulo);
         txtDescricao = findViewById(R.id.txtDescricao);
+
+        idLivro = getIntent().getIntExtra("LIVRO", 0);
+        if(idLivro > 0){
+            Livro livro = myBooksDb.daoLivro().pegarLivro(idLivro);
+            imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
+            livroCapa = BitmapFactory.decodeByteArray(livro.getCapa(), 0, livro.getCapa().length);
+            txtTitulo.setText(livro.getTitulo());
+            txtDescricao.setText(livro.getDescricao());
+            erro = false;
+        }
 
     }
 
@@ -77,14 +88,13 @@ public class cadastroActivity extends AppCompatActivity {
         String descricao = txtDescricao.getText().toString();
         if(!erro && !titulo.equals("") && !descricao.equals("")){
             byte[] capa = Utils.toByteArray(livroCapa);
-            Livro livro = new Livro(0, capa, titulo, descricao);
-            myBooksDb.daoLivro().inserir(livro);
+            Livro livro = new Livro(idLivro, capa, titulo, descricao);
+            if(idLivro > 0){
+                myBooksDb.daoLivro().atualizar(livro);
+            } else {
+                myBooksDb.daoLivro().inserir(livro);
+            }
             alert(SUCESSO);
-
-//            Inseri o livro na array
-//            int tamanhoArray = MainActivity.livros.length;
-//            MainActivity.livros = Arrays.copyOf(MainActivity.livros, tamanhoArray+1);
-//            MainActivity.livros[tamanhoArray] = livro;
         } else {
             alert(ERRO);
         }
@@ -105,15 +115,23 @@ public class cadastroActivity extends AppCompatActivity {
             });
         }else if(CONDICAO == SUCESSO){
             alert.setTitle("Sucesso");
-            alert.setMessage("Cadastro realizado com sucesso.");
+            alert.setMessage("Livro salvo com sucesso.");
             alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
+                    startActivity(new Intent(getBaseContext(), MainActivity.class));
                 }
             });
         }
 
         alert.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        startActivity(new Intent(getBaseContext(), MainActivity.class));
     }
 }

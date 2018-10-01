@@ -1,7 +1,8 @@
-package br.com.senaijandira.mybooks;
+package br.com.senaijandira.mybooks.adapter;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,15 +14,20 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import br.com.senaijandira.mybooks.R;
+import br.com.senaijandira.mybooks.Utils;
+import br.com.senaijandira.mybooks.cadastroActivity;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class LivrosAdapter extends ArrayAdapter<Livro> {
 
     MyBooksDatabase myBooksDb;
+    Context mcon;
 
     public LivrosAdapter(Context ctx) {
         super(ctx, 0, new ArrayList<Livro>());
+        mcon = ctx;
     }
     @NonNull
     @Override
@@ -41,12 +47,21 @@ public class LivrosAdapter extends ArrayAdapter<Livro> {
         TextView txtLivroDescricao = v.findViewById(R.id.txtLivroDescricao);
 
         ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
-
         imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myBooksDb.daoLivro().deletar(livro);
                 remove(livro);
+            }
+        });
+
+        ImageView imgEditar = v.findViewById(R.id.imgEditaLivro);
+        imgEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), cadastroActivity.class);
+                intent.putExtra("LIVRO", livro.getId());
+                mcon.startActivity(intent);
             }
         });
 
