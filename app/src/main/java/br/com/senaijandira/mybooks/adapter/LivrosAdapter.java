@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,15 +44,28 @@ public class LivrosAdapter extends ArrayAdapter<Livro> {
         final Livro livro = getItem(position);
 
         ImageView imgLivroCapa = v.findViewById(R.id.imgLivroCapa);
-        TextView txtLivroTitulo = v.findViewById(R.id.txtLivroTitulo);
-        TextView txtLivroDescricao = v.findViewById(R.id.txtLivroDescricao);
+        imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
 
-        ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
+        TextView txtLivroTitulo = v.findViewById(R.id.txtLivroTitulo);
+        txtLivroTitulo.setText(livro.getTitulo());
+
+        TextView txtLivroDescricao = v.findViewById(R.id.txtLivroDescricao);
+        txtLivroDescricao.setText(livro.getDescricao());
+
+        final ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
+        if(livro.getStatus() > 0){
+            imgDeleteLivro.setImageResource(R.drawable.baseline_delete_grey_18dp);
+        }
         imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myBooksDb.daoLivro().deletar(livro);
-                remove(livro);
+                if(livro.getStatus() == 0){
+                    myBooksDb.daoLivro().deletar(livro);
+                    remove(livro);
+                    toast("Livro Removido");
+                } else {
+                    toast("Remova o livro da categoria");
+                }
             }
         });
 
@@ -65,13 +79,27 @@ public class LivrosAdapter extends ArrayAdapter<Livro> {
             }
         });
 
-        imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
-        txtLivroTitulo.setText(livro.getTitulo());
-        txtLivroDescricao.setText(livro.getDescricao());
-
+        ImageView imgLivroLido = v.findViewById(R.id.imgLivroLido);
+        imgLivroLido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(livro.getStatus() == 0){
+                    toast("Adicionado aos livros lidos");
+                    livro.setStatus(1);
+                    imgDeleteLivro.setImageResource(R.drawable.baseline_delete_grey_18dp);
+                    myBooksDb.daoLivro().atualizar(livro);
+                }else{
+                    toast("Remova o livro da categoria");
+                }
+            }
+        });
 
         return v;
 
+    }
+
+    private void toast(String msg){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

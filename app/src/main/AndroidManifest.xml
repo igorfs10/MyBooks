@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".cadastroActivity" />
-        <activity android:name=".LivroFragment"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package br.com.senaijandira.mybooks;
+package br.com.senaijandira.mybooks.fragment;
 
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import br.com.senaijandira.mybooks.R;
+import br.com.senaijandira.mybooks.Utils;
 import br.com.senaijandira.mybooks.adapter.LivrosAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;

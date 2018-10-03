@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import br.com.senaijandira.mybooks.adapter.AbasAdapter;
+import br.com.senaijandira.mybooks.fragment.LivroFragment;
 
 public class MainActivity extends AppCompatActivity {
 

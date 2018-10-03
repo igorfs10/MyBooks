@@ -33,6 +33,10 @@ public class cadastroActivity extends AppCompatActivity {
     private final int ERRO = 0;
     private final int SUCESSO = 1;
 
+    private final int NORMAL = 0;
+    private final int LIDO = 1;
+    private final int LER = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +92,7 @@ public class cadastroActivity extends AppCompatActivity {
         String descricao = txtDescricao.getText().toString();
         if(!erro && !titulo.equals("") && !descricao.equals("")){
             byte[] capa = Utils.toByteArray(livroCapa);
-            Livro livro = new Livro(idLivro, capa, titulo, descricao);
+            Livro livro = new Livro(idLivro, capa, titulo, descricao, NORMAL);
             if(idLivro > 0){
                 myBooksDb.daoLivro().atualizar(livro);
             } else {
