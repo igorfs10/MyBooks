@@ -18,7 +18,7 @@ import java.io.InputStream;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
-public class cadastroActivity extends AppCompatActivity {
+public class CadastroActivity extends AppCompatActivity {
 
     Bitmap livroCapa;
     ImageView imgLivroCapa;
@@ -33,9 +33,7 @@ public class cadastroActivity extends AppCompatActivity {
     private final int ERRO = 0;
     private final int SUCESSO = 1;
 
-    private final int NORMAL = 0;
-    private final int LIDO = 1;
-    private final int LER = 2;
+    private int status = Consts.SEM_STATUS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,7 @@ public class cadastroActivity extends AppCompatActivity {
             livroCapa = BitmapFactory.decodeByteArray(livro.getCapa(), 0, livro.getCapa().length);
             txtTitulo.setText(livro.getTitulo());
             txtDescricao.setText(livro.getDescricao());
+            status = livro.getStatus();
             erro = false;
         }
 
@@ -92,7 +91,7 @@ public class cadastroActivity extends AppCompatActivity {
         String descricao = txtDescricao.getText().toString();
         if(!erro && !titulo.equals("") && !descricao.equals("")){
             byte[] capa = Utils.toByteArray(livroCapa);
-            Livro livro = new Livro(idLivro, capa, titulo, descricao, NORMAL);
+            Livro livro = new Livro(idLivro, capa, titulo, descricao, status);
             if(idLivro > 0){
                 myBooksDb.daoLivro().atualizar(livro);
             } else {

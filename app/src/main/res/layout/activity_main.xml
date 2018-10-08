@@ -33,7 +33,7 @@
         app:tabMode="fixed"
         android:background="@color/colorPrimary"
         app:tabTextColor="#ffffff"
-        app:tabSelectedTextColor="#999999"
+        app:tabSelectedTextColor="#000088"
         />
 
     <FrameLayout

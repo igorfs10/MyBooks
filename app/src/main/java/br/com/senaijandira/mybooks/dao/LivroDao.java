@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import br.com.senaijandira.mybooks.model.Livro;
+import br.com.senaijandira.mybooks.Consts;
 
 @Dao
 public interface LivroDao {
@@ -23,10 +24,10 @@ public interface LivroDao {
     @Query("SELECT * FROM livro")
     Livro[] selecionarTodos();
 
-    @Query("SELECT * FROM livro WHERE status = 1")
+    @Query("SELECT * FROM livro WHERE status = " + Consts.LIDO)
     Livro[] selecionarTodosLidos();
 
-    @Query("SELECT * FROM livro WHERE status = 2")
+    @Query("SELECT * FROM livro WHERE status = " + Consts.LER)
     Livro[] selecionarTodosNaoLidos();
 
     @Query("SELECT * FROM livro WHERE id = :idLivro")

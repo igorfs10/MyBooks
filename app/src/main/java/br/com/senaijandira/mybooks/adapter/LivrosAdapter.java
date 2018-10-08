@@ -15,9 +15,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.senaijandira.mybooks.Consts;
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.Utils;
-import br.com.senaijandira.mybooks.cadastroActivity;
+import br.com.senaijandira.mybooks.CadastroActivity;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
@@ -53,8 +54,15 @@ public class LivrosAdapter extends ArrayAdapter<Livro> {
         txtLivroDescricao.setText(livro.getDescricao());
 
         final ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
+        ImageView imgEditar = v.findViewById(R.id.imgEditaLivro);
+        ImageView imgLivroLido = v.findViewById(R.id.imgLivroLido);
+        ImageView imgLivroLer = v.findViewById(R.id.imgLivroLer);
+
+
         if(livro.getStatus() > 0){
-            imgDeleteLivro.setImageResource(R.drawable.baseline_delete_grey_18dp);
+            imgDeleteLivro.setImageResource(R.drawable.baseline_delete_gray_18dp);
+            imgLivroLido.setImageResource(R.drawable.baseline_book_gray_18dp);
+            imgLivroLer.setImageResource(R.drawable.baseline_chrome_reader_mode_gray_18dp);
         }
         imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,24 +77,34 @@ public class LivrosAdapter extends ArrayAdapter<Livro> {
             }
         });
 
-        ImageView imgEditar = v.findViewById(R.id.imgEditaLivro);
         imgEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), cadastroActivity.class);
+                Intent intent = new Intent(getContext(), CadastroActivity.class);
                 intent.putExtra("LIVRO", livro.getId());
                 mcon.startActivity(intent);
             }
         });
 
-        ImageView imgLivroLido = v.findViewById(R.id.imgLivroLido);
         imgLivroLido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(livro.getStatus() == 0){
                     toast("Adicionado aos livros lidos");
-                    livro.setStatus(1);
-                    imgDeleteLivro.setImageResource(R.drawable.baseline_delete_grey_18dp);
+                    livro.setStatus(Consts.LIDO);
+                    myBooksDb.daoLivro().atualizar(livro);
+                }else{
+                    toast("Remova o livro da categoria");
+                }
+            }
+        });
+
+        imgLivroLer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(livro.getStatus() == 0){
+                    toast("Adicionado aos livros à serem lidos");
+                    livro.setStatus(Consts.LER);
                     myBooksDb.daoLivro().atualizar(livro);
                 }else{
                     toast("Remova o livro da categoria");

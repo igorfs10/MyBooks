@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirCadastro(View v){
-        startActivity(new Intent(this, cadastroActivity.class));
+        startActivity(new Intent(this, CadastroActivity.class));
         finish();
     }
 

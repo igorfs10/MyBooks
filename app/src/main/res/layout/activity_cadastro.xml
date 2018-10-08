@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.senaijandira.mybooks.cadastroActivity"
+    tools:context="br.com.senaijandira.mybooks.CadastroActivity"
     android:padding="16dp"
     android:orientation="vertical"
     >
