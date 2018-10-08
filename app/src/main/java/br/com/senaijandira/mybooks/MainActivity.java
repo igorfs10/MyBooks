@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import br.com.senaijandira.mybooks.adapter.AbasAdapter;
+import br.com.senaijandira.mybooks.fragment.LerFragment;
+import br.com.senaijandira.mybooks.fragment.LidoFragment;
 import br.com.senaijandira.mybooks.fragment.LivroFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         AbasAdapter adapter = new AbasAdapter( getSupportFragmentManager() );
         adapter.adicionar( new LivroFragment() , "Livros");
-        adapter.adicionar( new LivroFragment() , "Lerei");
-        adapter.adicionar( new LivroFragment() , "Lerido");
+        adapter.adicionar( new LerFragment(), "Lerei");
+        adapter.adicionar( new LidoFragment() , "Lerido");
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.abas_view_pager);
