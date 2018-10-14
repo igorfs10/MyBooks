@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         AbasAdapter adapter = new AbasAdapter( getSupportFragmentManager() );
         adapter.adicionar( new LivroFragment() , "Livros");
-        adapter.adicionar( new LerFragment(), "Lerei");
-        adapter.adicionar( new LidoFragment() , "Lerido");
+        adapter.adicionar( new LerFragment(), "Ler");
+        adapter.adicionar( new LidoFragment() , "Lido");
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.abas_view_pager);

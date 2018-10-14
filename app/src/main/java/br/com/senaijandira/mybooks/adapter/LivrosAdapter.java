@@ -25,7 +25,6 @@ import br.com.senaijandira.mybooks.model.Livro;
 public class LivrosAdapter extends ArrayAdapter<Livro> {
 
     MyBooksDatabase myBooksDb;
-    Context mcon;
 
     public LivrosAdapter(Context ctx) {
         super(ctx, 0, new ArrayList<Livro>());

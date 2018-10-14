@@ -10,26 +10,26 @@ import android.widget.ListView;
 
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.Utils;
-import br.com.senaijandira.mybooks.adapter.LivrosAdapter;
+import br.com.senaijandira.mybooks.adapter.LidosLerAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class LidoFragment extends Fragment {
 
     ListView lstViewLivros;
-    LivrosAdapter adapter;
+    LidosLerAdapter adapter;
     MyBooksDatabase appDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_livro_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_lidosler_fragment, container, false);
 
         appDB = Room.databaseBuilder(getContext(), MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
         lstViewLivros = view.findViewById(R.id.lstViewLivros);
 
-        adapter = new LivrosAdapter(getContext());
+        adapter = new LidosLerAdapter(getContext());
 
         lstViewLivros.setAdapter(adapter);
 
@@ -51,4 +51,11 @@ public class LidoFragment extends Fragment {
         adapter.addAll(livros);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
 }
