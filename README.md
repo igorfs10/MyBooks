@@ -25,10 +25,10 @@
 2 - Toque na imagem da câmera para adicionar a capa do livro.  
 [<img src="https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_2.png" width=160>](https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_2.png)
 
-3 - Coloque o nome do título, descrição e toque em salvar.  
+3 - Coloque o nome do título, descrição e toque em salvar para adicionar o livro à lista.  
 [<img src="https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_4.png" width=160>](https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_4.png)
 
-4 - O livro aparecerá na lista de livros com imagens do lado que executará ações;  
+4 - O livro aparecerá na lista de livros com imagens do lado que ao tocar executará ações;  
 	a - Deletar o livro.  
 	b - Editar o livro.  
 	c - Adicionar à categoria de livros para ler.  
@@ -38,5 +38,5 @@
 	Obs 2: Não pode remover ou alterar a categoria do livro se ele já estiver em outra categoria.  
 [<img src="https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_5.png" width=160>](https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_5.png)
 
-5 - Para retirar o livro da categoria, va até a aba da categoria e clique no "X" ao lado do livro.  
+5 - Para retirar o livro da categoria, va até a aba da categoria e toque no "X" ao lado do livro.  
 [<img src="https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_7.png" width=160>](https://raw.githubusercontent.com/igorfs10/MyBooks/master/screenshots/Screenshot_7.png)
